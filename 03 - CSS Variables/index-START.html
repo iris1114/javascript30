@@ -45,6 +45,33 @@
   </style>
 
   <script>
+    (function(){
+
+      const setStyle = (e) => {
+        
+
+        // const image = document.querySelector('img');
+
+        // if(e.target.id === 'spacing'){
+        //   console.log('in')
+        //   image.style.padding = `"${e.target.value}px`;
+        // }else if(e.target.id === 'blur'){
+        //   image.style.filter = `"blur(${e.target.value})"`;
+        // }else if(e.target.id === 'base'){
+        //   image.style.background = `"${e.target.value}"`;
+        // }else{
+        //   return;
+        // }
+
+      }
+
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach((input) => {
+        input.addEventListener('change', setStyle);
+        // input.addEventListener('mousemove', setStyle)
+      })  
+
+    })();
   </script>
 
 </body>

@@ -62,13 +62,60 @@
       background: black;
       position: absolute;
       top: 50%;
-    }
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
 
+    }
   </style>
 
   <script>
+    (function(){
+      const hourHand = document.querySelector('.hour-hand');
+      const minsHand = document.querySelector('.min-hand');
+      const secondsHand = document.querySelector('.second-hand');
 
+      const setTime = () => {
+        const now = new Date();
+        const seconds = now.getSeconds();
+        const mins = now.getMinutes();
+        const hour = now.getHours();
+
+        const secondsDegrees = seconds * 6;  // （360度/60秒= 1秒6度 ）
+        const minsDegrees =  (mins * 6) + (seconds * 6 / 60); //（360度/60分鐘= 1分鐘6度 ，目前分鐘*6度）+ （目前秒*6度/60秒）
+        const hourDegrees =  (hour * 30) + (mins * 30 / 60); //（360度/12小時 = 1小時30度， 目前小時*30度）+（目前分鐘*30度/60分鐘）
+
+        secondsHand.style.transform = `rotate(${secondsDegrees}deg)`;
+        minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+        hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+      }
+
+      setInterval(setTime, 1000);
+      setTime(); //初始化畫面
+
+    })();
+
+
+/* 
+    setInterval 設定一次執行很多次
+    setTimeOut  設定延遲執行一次
+    requestAnimationFrame() 處理畫面更新的setTimeOut
+*/
+
+/*  const animationFrameHandle = () => {
+        setTime();
+        window.requestAnimationFrame(animationFrameHandle);
+      }
+      window.requestAnimationFrame(animationFrameHandle);
+ */
 
   </script>
+
+  
+
+
+
 </body>
 </html>
+
