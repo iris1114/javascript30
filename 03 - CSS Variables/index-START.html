@@ -26,6 +26,22 @@
       misc styles, nothing to do with CSS variables
     */
 
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
+
     body {
       text-align: center;
       background: #193549;
@@ -45,30 +61,17 @@
   </style>
 
   <script>
-    (function(){
+    ;(function(){
+      const inputs = document.querySelectorAll('input');
 
-      const setStyle = (e) => {
-        
-
-        // const image = document.querySelector('img');
-
-        // if(e.target.id === 'spacing'){
-        //   console.log('in')
-        //   image.style.padding = `"${e.target.value}px`;
-        // }else if(e.target.id === 'blur'){
-        //   image.style.filter = `"blur(${e.target.value})"`;
-        // }else if(e.target.id === 'base'){
-        //   image.style.background = `"${e.target.value}"`;
-        // }else{
-        //   return;
-        // }
-
+      function changeHandle(){
+        const suffix = this.name === 'base' ? '' : 'px';
+        document.documentElement.style.setProperty(`--${this.name}`, `${this.value}${suffix}`);
       }
 
-      const inputs = document.querySelectorAll('input');
       inputs.forEach((input) => {
-        input.addEventListener('change', setStyle);
-        // input.addEventListener('mousemove', setStyle)
+        input.addEventListener('change', changeHandle);
+        input.addEventListener('mousemove', changeHandle)
       })  
 
     })();
