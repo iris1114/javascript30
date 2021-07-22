@@ -76,11 +76,10 @@
     </style>
 
     <script>
-      (function () {
+      (() => {
         const inputs = document.querySelectorAll("input");
 
         function changeHandle() {
-          console.log("this", this);
           const suffix = this.name === "base" ? "" : "px"; //記得加px,背景色則不用
           document.documentElement.style.setProperty(
             `--${this.name}`,
@@ -89,8 +88,7 @@
         }
 
         inputs.forEach((input) => {
-          input.addEventListener("change", changeHandle);
-          input.addEventListener("mousemove", changeHandle);
+          input.addEventListener("input", changeHandle);
         });
       })();
     </script>
