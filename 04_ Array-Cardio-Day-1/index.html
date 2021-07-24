@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Array Cardio 💪</title>
   </head>
+
   <body>
     <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
     <script>
@@ -107,38 +108,68 @@
       // Array.prototype.reduce()
       // 4. How many years did all the inventors live all together?
 
+      //method1
       const ans4 = inventors.reduce((total, inventor) => {
         return total + (inventor.passed - inventor.year);
       }, 0); //從0開始+
       console.log("4. How many years did all the inventors live all together?");
       console.log(ans4);
 
-      // 5. Sort the inventors by years lived
-      const ans5 = inventors.sort((a, b) => {
-        return a.passed - a.year > b.passed - b.year;
+      //method2 forEach
+      let total = 0;
+      inventors.forEach((inventor) => {
+        total += inventor.passed - inventor.year;
       });
+      console.log(total);
+
+      // 5. Sort the inventors by years lived
+      inventors.forEach((inventor) => {
+        inventor.age = inventor.passed - inventor.year;
+      });
+
+      const ans5 = inventors.sort((a, b) => {
+        return a.passed - a.year - (b.passed - b.year);
+      });
+
       console.log("5. Sort the inventors by years lived");
       console.table(ans5);
 
       // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
       // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-      //   let array = [];
-      //   const lists = document.querySelectorAll("li a");
 
-      //   array.push(lists);
-      //   array[0].map((list) => {
-      //     return list.innerText.contain("de");
+      //method1
+      //   const array = [];
+      //   const lists = document.querySelectorAll(".mw-category li a"); //nodelist 不是陣列，但可以用 forEach 跑迭代, 可以用 array from
+
+      //   lists.forEach((list) => {
+      //     array.push(list.title);
       //   });
 
-      //   console.log(array);
+      //   const ans6 = array.filter((title) => {
+      //     return title.indexOf("de") !== -1;
+      //   });
 
-      const lists = Array.from(document.querySelectorAll("li a"));
-      lists.map((list) => {
-        return list.innerHTML.contain("");
-      });
+      //   console.log(ans6);
+
+      //method2
+      //   const category = document.querySelector(".mw-category");
+      //   const links = Array.from(category.querySelectorAll("a"));
+      //   const de = links
+      //     .map((link) => link.textContent)
+      //     .filter((streetName) => streetName.includes("de"));
 
       // 7. sort Exercise
       // Sort the people alphabetically by last name
+
+      const ans7 = people.sort((a, b) => {
+        const [aFirtst, aLast] = a.split(", ");
+        const [bFirtst, bLast] = b.split(", ");
+
+        return aLast > bLast ? 1 : aLast < bLast ? -1 : 0;
+      });
+
+      console.log("7. Sort the people alphabetically by last name");
+      console.log(ans7);
 
       // 8. Reduce Exercise
       // Sum up the instances of each of these
@@ -160,8 +191,17 @@
         "truck",
       ];
 
-      for (item of data) {
-      }
+      const ans8 = data.reduce((obj, content) => {
+        if (!obj[content]) {
+          obj[content] = 0;
+        }
+        obj[content] += 1;
+
+        return obj;
+      }, {});
+
+      console.log(" 8.Sum up the instances of each of these");
+      console.log(ans8);
     </script>
   </body>
 </html>
