@@ -193,12 +193,13 @@
 
       const ans8 = data.reduce((obj, content) => {
         if (!obj[content]) {
+          //如果沒有的話則為0
           obj[content] = 0;
         }
-        obj[content] += 1;
+        obj[content] += 1; //如果沒有的相同的則+1
 
         return obj;
-      }, {});
+      }, {}); //預設給個空object
 
       console.log(" 8.Sum up the instances of each of these");
       console.log(ans8);
