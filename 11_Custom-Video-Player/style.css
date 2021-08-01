@@ -125,7 +125,6 @@ body {
 
 .progress__filled {
   width: 0%;
-  /* background-color: #ff0000; */
   background: rgba(255, 255, 255, 0.3);
   flex: 0;
   flex-basis: 100%;
