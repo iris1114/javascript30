@@ -1,0 +1,91 @@
+<!-- filepath: /d:/github/javascript30/14.mdx -->
+---
+title: "JS Reference VS Copy"
+---
+
+import { useEffect } from 'react';
+
+# JS Reference VS Copy
+
+## 基本資料型別的複製
+
+```javascript
+let age = 100;
+let age2 = age;
+console.log(age, age2); // 100, 100
+age = 200;
+console.log(age, age2); // 200, 100
+
+let name = 'Wes';
+let name2 = name;
+console.log(name, name2); // Wes, Wes
+name = 'wesley';
+console.log(name, name2); // wesley, Wes
+```
+
+## 陣列的引用與複製
+
+```javascript
+const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+// 直接賦值給新變數是引用（reference），兩者指向同一個陣列。
+const team = players;
+console.log(players, team); // ['Wes', 'Sarah', 'Ryan', 'Poppy'], ['Wes', 'Sarah', 'Ryan', 'Poppy']
+
+// 修改 team 會影響 players
+team[3] = 'Lux';
+console.log(players, team); // ['Wes', 'Sarah', 'Ryan', 'Lux'], ['Wes', 'Sarah', 'Ryan', 'Lux']
+
+// 使用 slice() 方法複製陣列
+const team2 = players.slice();
+
+// 使用 concat() 方法複製陣列
+const team3 = [].concat(players);
+
+// 使用 ES6 的展開運算子（spread operator）複製陣列
+const team4 = [...players];
+team4[3] = 'heeee hawww';
+console.log(team4); // ['Wes', 'Sarah', 'Ryan', 'heeee hawww']
+
+// 使用 Array.from() 方法複製陣列
+const team5 = Array.from(players);
+```
+
+## 物件的引用與複製
+
+```javascript
+const person = {
+  name: 'Wes Bos',
+  age: 80
+};
+
+// 直接賦值給新變數是引用（reference），兩者指向同一個物件
+const captain = person;
+captain.number = 99;
+console.log(person, captain); // { name: 'Wes Bos', age: 80, number: 99 }, { name: 'Wes Bos', age: 80, number: 99 }
+
+// 使用 Object.assign() 方法複製物件
+const cap2 = Object.assign({}, person, { number: 99, age: 12 });
+console.log(cap2); // { name: 'Wes Bos', age: 12, number: 99 }
+
+// 使用 JSON 的序列化與反序列化方法深層複製物件
+const wes = {
+  name: 'Wes',
+  age: 100,
+  social: {
+    twitter: '@wesbos',
+    facebook: 'wesbos.developer'
+  }
+};
+
+console.clear();
+console.log(wes);
+
+const dev = Object.assign({}, wes);
+const dev2 = JSON.parse(JSON.stringify(wes));
+```
+
+## 注意事項
+
+- 使用 `Object.assign()` 和展開運算子（spread operator）進行的複製都是淺層複製（shallow copy），僅複製第一層。如果物件中包含巢狀物件，內部的巢狀物件仍然是引用。
+- 深層複製（deep copy）可以使用 `JSON.parse(JSON.stringify(obj))` 或第三方函式庫如 lodash 的 `cloneDeep` 方法，但需謹慎使用。
